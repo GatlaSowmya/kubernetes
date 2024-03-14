@@ -1,0 +1,38 @@
+# Deployments  Recreate
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebapp-deployment
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: javawebapp
+  template:
+    metadata:
+      name: javawebapp-pod
+      labels:
+        app: javawebapp
+    spec:
+      containers:
+      - name: javawebapp-container
+        image: dockerhandson/java-web-app:latest
+        ports:
+        - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: javawebappsvc
+spec:
+  type: LoadBalancer
+  selector:
+     app: javawebapp
+  ports:
+  - port: 80
+    targetPort: 8080
+
