@@ -9,6 +9,7 @@ spec:
     rollingUpdate:
       maxUnavailable: 1
       maxSurge: 2
+  minReadySeconds: 30    
   selector:
     matchLabels:
       app: javawebapp
